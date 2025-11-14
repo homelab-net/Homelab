@@ -1,7 +1,7 @@
 # Homelab Configuration & Reference
 
 **Last Updated:** 2025-11-14
-**Hardware:** Small Workstation (16GB RAM, 500GB Storage)
+**Hardware:** KAMRUI Essenx E2 N150 Mini PC (16GB DDR4, 512GB SSD)
 **Hypervisor:** Proxmox VE
 **Owner:** [Your Name]
 
@@ -23,16 +23,19 @@
 ### Proxmox Host
 | Component | Specification |
 |-----------|---------------|
-| CPU | [TODO: Add CPU model] |
-| RAM | 16 GB |
-| Storage | 500 GB |
-| Network | [TODO: Add NIC details] |
+| Model | KAMRUI Essenx E2 N150 Mini PC |
+| CPU | Intel Twin Lake-N N150 (4C/4T, up to 3.6GHz) |
+| RAM | 16 GB DDR4 |
+| Storage | 512 GB SSD |
+| Network | Gigabit Ethernet + WiFi + Bluetooth |
+| Display | HDMI + DP1.4 (Dual 4K UHD support) |
 | IP Address | [TODO: Add Proxmox IP] |
 
 **Resource Allocation Strategy:**
 - Proxmox Host overhead: ~2GB RAM
 - Available for VMs: ~14GB RAM
-- Reserve 20-30GB for Proxmox root
+- Reserve 30GB for Proxmox root
+- Remaining storage: ~480GB for VMs
 
 ---
 
@@ -49,16 +52,18 @@
 | Hostname | IP Address | Service/Purpose | Notes |
 |----------|------------|-----------------|-------|
 | proxmox-host | [TODO] | Proxmox VE host | Web UI: https://IP:8006 |
-| dns-vm | [TODO] | Technitium DNS | - |
+| dns-primary | [TODO] | Pi-hole (Primary DNS + Ad-blocking) | Web UI: http://IP/admin |
+| dns-secondary | [TODO] | AdGuard Home (Secondary DNS + Ad-blocking) | Web UI: http://IP:3000 |
 | docker-host | [TODO] | Docker container host | - |
-| wireguard | [TODO] | VPN endpoint | - |
+| wireguard | [TODO] | VPN endpoint (on dns-primary) | - |
 
 ### DNS Configuration
 | Record Type | Name | Target | Purpose |
 |-------------|------|--------|---------|
 | A | proxmox.local | [Proxmox IP] | Proxmox web interface |
+| A | pihole.local | [dns-primary IP] | Pi-hole admin interface |
+| A | adguard.local | [dns-secondary IP] | AdGuard Home admin interface |
 | A | docker.local | [Docker host IP] | Docker host |
-| A | dns.local | [DNS VM IP] | DNS server |
 | A | traefik.local | [Docker host IP] | Traefik dashboard |
 | A | portainer.local | [Docker host IP] | Portainer UI |
 
@@ -69,10 +74,23 @@
 ### Active VMs
 | VM ID | Name | OS | vCPU | RAM | Disk | IP | Purpose | Status |
 |-------|------|----|----- |-----|------|-------|---------|--------|
-| 100 | dns-vm | [TODO: e.g., Ubuntu 22.04] | 1 | 2GB | 20GB | [TODO] | Technitium DNS + WireGuard | Planned |
-| 101 | docker-host | [TODO: e.g., Ubuntu 22.04] | 4 | 10GB | 100GB | [TODO] | Docker container runtime | Planned |
+| 100 | dns-primary | Ubuntu Server 24.04 LTS | 1 | 1.5GB | 15GB | [TODO] | Pi-hole + WireGuard VPN | Planned |
+| 101 | dns-secondary | Ubuntu Server 24.04 LTS | 1 | 1.5GB | 15GB | [TODO] | AdGuard Home (backup DNS) | Planned |
+| 102 | docker-host | Ubuntu Server 24.04 LTS | 4 | 9GB | 150GB | [TODO] | Docker container runtime | Planned |
 
-**Total Allocated:** 6 vCPU, 12GB RAM, 120GB Disk
+**Total Allocated:** 6 vCPU, 12GB RAM, 180GB Disk
+**Remaining:** ~2-4GB RAM, ~300GB Storage for future expansion
+
+### Why Dual DNS?
+**Redundancy:** If one DNS server goes down, the other handles all queries
+**Ad-blocking:** Both Pi-hole and AdGuard Home provide excellent ad-blocking
+**Comparison:** Different blocklists and methods - see which works better
+**Learning:** Experience with both popular DNS solutions
+**Zero downtime:** Can update/reboot one DNS server while the other runs
+
+**DNS Configuration on Clients:**
+- Primary DNS: [dns-primary IP] (Pi-hole)
+- Secondary DNS: [dns-secondary IP] (AdGuard Home)
 
 ---
 
@@ -110,8 +128,15 @@
 ### Virtual Machines
 | VM | Username | Password/Key Location | SSH Access | Notes |
 |----|----------|----------------------|------------|-------|
-| dns-vm | [TODO] | [TODO] | ssh user@[DNS-IP] | - |
+| dns-primary | [TODO] | [TODO] | ssh user@[PRIMARY-DNS-IP] | - |
+| dns-secondary | [TODO] | [TODO] | ssh user@[SECONDARY-DNS-IP] | - |
 | docker-host | [TODO] | [TODO] | ssh user@[DOCKER-IP] | - |
+
+### DNS & Ad-blocking Services
+| Service | Username | Password Location | Access URL | Notes |
+|---------|----------|-------------------|------------|-------|
+| Pi-hole | - | [TODO: Set on first login] | http://pihole.local/admin | Primary DNS |
+| AdGuard Home | - | [TODO: Set on first login] | http://adguard.local:3000 | Secondary DNS |
 
 ### Docker Services
 | Service | Username | Password Location | Access URL | Notes |
@@ -137,48 +162,80 @@ This roadmap is adapted from the full v2.3 roadmap to fit 16GB RAM constraints.
 - [ ] Update and secure Proxmox host
 
 ### 🔨 Phase 1: Core Infrastructure (START HERE)
-**Goal:** Get basic VMs running with proper resource allocation
+**Goal:** Get basic VMs running with dual DNS for redundancy and ad-blocking
 
 **Steps:**
-1. Create `dns-vm` (Ubuntu Server 22.04)
-   - 1 vCPU, 2GB RAM, 20GB disk
+1. Create `dns-primary` (Ubuntu Server 24.04 LTS)
+   - VM ID: 100
+   - Resources: 1 vCPU, 1.5GB RAM, 15GB disk
    - Static IP assignment
-   - Install Technitium DNS
+   - Install Pi-hole for DNS + Ad-blocking
+   - Install WireGuard for VPN access
    - Configure as primary DNS for homelab
 
-2. Create `docker-host` (Ubuntu Server 22.04)
-   - 4 vCPU, 10GB RAM, 100GB disk
+2. Create `dns-secondary` (Ubuntu Server 24.04 LTS)
+   - VM ID: 101
+   - Resources: 1 vCPU, 1.5GB RAM, 15GB disk
+   - Static IP assignment
+   - Install AdGuard Home
+   - Configure as secondary/backup DNS
+   - Different blocklists from Pi-hole for comparison
+
+3. Create `docker-host` (Ubuntu Server 24.04 LTS)
+   - VM ID: 102
+   - Resources: 4 vCPU, 9GB RAM, 150GB disk
    - Static IP assignment
    - Install Docker & Docker Compose
    - Configure Docker logging (limit log sizes)
+   - Point to both DNS servers
 
 **Success Criteria:**
-- Both VMs boot and are accessible via SSH
+- All three VMs boot and are accessible via SSH
 - VMs can reach internet and each other
 - Docker installed and functional
+- DNS redundancy working (can lose one DNS and still resolve)
 
 ---
 
 ### 📡 Phase 2: Networking & DNS
-**Goal:** Proper DNS resolution and secure remote access
+**Goal:** Dual DNS with ad-blocking and secure remote access
 
 **Steps:**
-1. Configure Technitium DNS
-   - Set up local DNS zones (*.local)
-   - Configure forwarding to upstream DNS (1.1.1.1, 8.8.8.8)
-   - Point Proxmox and VMs to use Technitium DNS
-   - Create A records for all planned services
+1. Configure Pi-hole (dns-primary)
+   - Complete initial setup wizard
+   - Set upstream DNS (Cloudflare 1.1.1.1, Google 8.8.8.8)
+   - Enable DNSSEC
+   - Add default blocklists (ads, tracking, malware)
+   - Configure local DNS records (*.local)
+   - Set as primary DNS on Proxmox and all VMs
 
-2. Install WireGuard VPN (on dns-vm or dedicated container)
+2. Configure AdGuard Home (dns-secondary)
+   - Complete initial setup wizard
+   - Set upstream DNS (Quad9 9.9.9.9, OpenDNS)
+   - Enable DNSSEC
+   - Add different blocklists from Pi-hole (for comparison)
+   - Sync local DNS records with Pi-hole
+   - Set as secondary DNS on Proxmox and all VMs
+
+3. Configure WireGuard VPN (on dns-primary)
    - Generate server and client keys
    - Configure peer access
+   - Route DNS queries through Pi-hole
    - Test remote connectivity
    - Document client configurations
 
+4. Test DNS redundancy
+   - Verify both DNS servers resolve queries
+   - Shut down one DNS server and test failover
+   - Compare ad-blocking effectiveness
+   - Check query logs on both systems
+
 **Success Criteria:**
 - All hostnames resolve via local DNS
+- Ad-blocking working on both DNS servers
 - Can access homelab remotely via WireGuard
-- DNS queries logged and working
+- DNS failover works if one server is down
+- Query statistics visible in both Pi-hole and AdGuard dashboards
 
 ---
 
@@ -295,8 +352,8 @@ This roadmap is adapted from the full v2.3 roadmap to fit 16GB RAM constraints.
 
 ### Network Expansion:
 - VLAN segmentation (IoT, services, management)
-- Dual DNS for redundancy
 - OPNsense/pfSense VM for advanced routing
+- Additional WireGuard peers for family/friends
 
 ---
 
@@ -362,6 +419,39 @@ wg show
 systemctl restart wg-quick@wg0
 ```
 
+### Pi-hole
+```bash
+# Update Pi-hole
+pihole -up
+
+# Update gravity (blocklists)
+pihole -g
+
+# Restart DNS
+pihole restartdns
+
+# Tail query log
+pihole -t
+
+# Check status
+pihole status
+```
+
+### AdGuard Home
+```bash
+# Check service status
+systemctl status AdGuardHome
+
+# Restart service
+systemctl restart AdGuardHome
+
+# View logs
+journalctl -u AdGuardHome -f
+
+# Update AdGuard Home
+# (Done via web UI at http://adguard.local:3000)
+```
+
 ---
 
 ## File Locations & Backups
@@ -388,6 +478,7 @@ systemctl restart wg-quick@wg0
 | Date | Change | Modified By |
 |------|--------|-------------|
 | 2025-11-14 | Initial document creation, 16GB roadmap adaptation | Claude |
+| 2025-11-14 | Updated for KAMRUI N150 hardware specs, dual DNS VMs (Pi-hole + AdGuard Home) | Claude |
 | | | |
 
 ---
