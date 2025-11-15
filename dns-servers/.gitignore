@@ -1,0 +1,31 @@
+# Environment files with secrets
+.env
+*.env
+!.env.example
+
+# Technitium data
+/opt/technitium/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Backup files
+*.tar.gz
+*.zip
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace

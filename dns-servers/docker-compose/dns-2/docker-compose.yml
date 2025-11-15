@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  technitium:
+    container_name: technitium-dns-2
+    image: technitium/dns-server:latest
+    hostname: dns-2
+    restart: unless-stopped
+    ports:
+      # DNS ports
+      - "53:53/udp"
+      - "53:53/tcp"
+      # DNS-over-TLS
+      - "853:853/tcp"
+      # DNS-over-HTTPS
+      - "443:443/tcp"
+      # DNS-over-QUIC
+      - "853:853/udp"
+      # Web interface
+      - "5380:5380/tcp"
+      # DHCP (optional)
+      - "67:67/udp"
+    environment:
+      - DNS_SERVER_DOMAIN=dns-2.local
+      - DNS_SERVER_ADMIN_PASSWORD=${DNS_ADMIN_PASSWORD:-admin}
+      - DNS_SERVER_PREFER_IPV6=false
+    volumes:
+      - /opt/technitium/config:/etc/dns
+    networks:
+      - dns-network
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5380/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  dns-network:
+    driver: bridge
