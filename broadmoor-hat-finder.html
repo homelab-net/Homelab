@@ -467,6 +467,9 @@
     position: sticky;
     top: 80px;
   }
+  @media(max-width:768px) {
+    .preview-panel { position: static; }
+  }
   .preview-card {
     background: var(--dark);
     border-radius: var(--radius);
@@ -483,14 +486,16 @@
     font-family: 'Inter', sans-serif;
     font-weight: 500;
   }
-  .hat-svg-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 180px;
+  .hat-img-wrap {
     margin-bottom: 20px;
+    border-radius: 3px;
+    overflow: hidden;
   }
-  .hat-svg-wrap svg { transition: all 0.4s ease; }
+  .hat-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
   .preview-details { text-align: left; }
   .preview-detail-row {
     display: flex;
@@ -1064,8 +1069,8 @@
       <div class="preview-panel" id="preview-panel">
         <div class="preview-card">
           <h4>Live Preview</h4>
-          <div class="hat-svg-wrap" id="hat-svg-wrap">
-            <!-- SVG rendered by JS -->
+          <div class="hat-img-wrap">
+            <img src="https://cdn11.bigcommerce.com/s-cwps3viz1k/images/stencil/original/image-manager/langston-hat-infographic-v2-1-1-.jpg?t=1762543630" alt="Hat anatomy reference" loading="lazy">
           </div>
           <div class="preview-details" id="preview-details">
             <div class="preview-detail-row">
@@ -1574,168 +1579,7 @@ function showResults(profile) {
   }, 100);
 }
 
-// ── PREVIEW SVG ──
-function drawHatSVG() {
-  const hatColor = state.colorHex || '#B8892A';
-  const isLight = isLightColor(hatColor);
-  const strokeColor = isLight ? 'rgba(61,43,31,0.3)' : 'rgba(255,255,255,0.15)';
-  const highlightColor = isLight ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.1)';
-
-  // Crown shape params
-  const crown = state.crown || '';
-  let crownHeight = 70;
-  let crownTopWidth = 60;
-  let crownShape = 'classic'; // classic, teardrop, open, gus
-
-  if (crown === 'Gus / Rancher') { crownHeight = 50; crownShape = 'gus'; }
-  else if (crown === 'Teardrop') { crownHeight = 72; crownShape = 'teardrop'; }
-  else if (crown === 'Open Crown') { crownHeight = 65; crownShape = 'open'; }
-  else if (crown === 'Pinch Front') { crownHeight = 68; crownShape = 'pinch'; }
-
-  // Brim params
-  const brimWidth = state.brimWidth || 'Medium';
-  const brimStyle = state.brim || '';
-  let brimExtend = 52;
-  if (brimWidth === 'Narrow') brimExtend = 36;
-  else if (brimWidth === 'Wide') brimExtend = 68;
-  else if (brimWidth === 'Extra Wide') brimExtend = 88;
-
-  let brimCurve = 8;
-  if (brimStyle === 'Flat Brim') brimCurve = 0;
-  else if (brimStyle === 'Pencil Curl') brimCurve = 18;
-  else if (brimStyle === 'Traditional Curve') brimCurve = 10;
-  else if (brimStyle === 'Slight Curve') brimCurve = 5;
-  else if (brimStyle === 'Wide Statement') brimCurve = 6;
-
-  // Band color
-  const band = state.band || '';
-  let bandColor = '#6B4C2A';
-  if (band === 'Simple Ribbon') bandColor = '#1A1008';
-  else if (band === 'Leather Band' || band === 'Braided Leather') bandColor = '#6B4C2A';
-  else if (band === 'Minimal Dress Band') bandColor = '#3D2B1F';
-  else if (band === 'Feather Accent') bandColor = '#8B7355';
-  else if (band === 'Western Statement Band') bandColor = '#B8892A';
-
-  const cx = 140; // center x
-  const baseY = 155; // where crown meets brim
-  const topY = baseY - crownHeight;
-  const crownW = 56;
-
-  // Generate crown path
-  let crownPath = '';
-  if (crownShape === 'classic') {
-    // Classic with center crease
-    crownPath = `M ${cx - crownW} ${baseY}
-      C ${cx - crownW} ${baseY - 20}, ${cx - crownW + 8} ${topY + 10}, ${cx - 18} ${topY}
-      L ${cx + 18} ${topY}
-      C ${cx + crownW - 8} ${topY + 10}, ${cx + crownW} ${baseY - 20}, ${cx + crownW} ${baseY} Z`;
-  } else if (crownShape === 'teardrop') {
-    crownPath = `M ${cx - crownW} ${baseY}
-      C ${cx - crownW} ${baseY - 30}, ${cx - 22} ${topY + 5}, ${cx} ${topY}
-      C ${cx + 22} ${topY + 5}, ${cx + crownW} ${baseY - 30}, ${cx + crownW} ${baseY} Z`;
-  } else if (crownShape === 'gus') {
-    crownPath = `M ${cx - crownW - 8} ${baseY}
-      C ${cx - crownW - 4} ${baseY - 25}, ${cx - crownW + 6} ${topY + 5}, ${cx - 10} ${topY + 2}
-      C ${cx} ${topY - 4}, ${cx + 10} ${topY + 2}, ${cx + crownW - 6} ${topY + 5}
-      C ${cx + crownW + 4} ${baseY - 25}, ${cx + crownW + 8} ${baseY}, ${cx + crownW + 8} ${baseY} Z`;
-  } else if (crownShape === 'open') {
-    crownPath = `M ${cx - crownW} ${baseY}
-      C ${cx - crownW + 2} ${baseY - 15}, ${cx - crownW + 4} ${topY + 8}, ${cx - 28} ${topY + 4}
-      L ${cx + 28} ${topY + 4}
-      C ${cx + crownW - 4} ${topY + 8}, ${cx + crownW - 2} ${baseY - 15}, ${cx + crownW} ${baseY} Z`;
-  } else if (crownShape === 'pinch') {
-    crownPath = `M ${cx - crownW} ${baseY}
-      C ${cx - crownW} ${baseY - 25}, ${cx - 24} ${topY + 8}, ${cx - 8} ${topY}
-      C ${cx - 2} ${topY - 3}, ${cx + 2} ${topY - 3}, ${cx + 8} ${topY}
-      C ${cx + 24} ${topY + 8}, ${cx + crownW} ${baseY - 25}, ${cx + crownW} ${baseY} Z`;
-  }
-
-  // Brim path
-  const brimLeft = cx - crownW - brimExtend;
-  const brimRight = cx + crownW + brimExtend;
-  const brimY = baseY + 12;
-  const brimBot = brimY + 14;
-  const brimCurveLeft = brimBot - brimCurve;
-  const brimCurveRight = brimBot - brimCurve;
-
-  const brimPath = `M ${brimLeft} ${brimY}
-    C ${brimLeft + brimExtend * 0.3} ${brimY - 4}, ${cx - crownW * 0.5} ${brimY - 2}, ${cx - crownW} ${baseY + 2}
-    L ${cx + crownW} ${baseY + 2}
-    C ${cx + crownW * 0.5} ${brimY - 2}, ${brimRight - brimExtend * 0.3} ${brimY - 4}, ${brimRight} ${brimY}
-    C ${brimRight + 8} ${brimY + 6}, ${brimRight} ${brimCurveRight}, ${brimRight - 8} ${brimBot}
-    C ${cx + crownW + brimExtend * 0.5} ${brimBot + brimCurve * 0.5}, ${cx} ${brimBot + brimCurve * 0.3}, ${cx} ${brimBot + brimCurve * 0.3}
-    C ${cx} ${brimBot + brimCurve * 0.3}, ${cx - crownW - brimExtend * 0.5} ${brimBot + brimCurve * 0.5}, ${brimLeft + 8} ${brimBot}
-    C ${brimLeft} ${brimCurveLeft}, ${brimLeft - 8} ${brimY + 6}, ${brimLeft} ${brimY} Z`;
-
-  // Band
-  const bandY1 = baseY - 2;
-  const bandY2 = baseY + 10;
-
-  const svg = `<svg width="280" height="190" viewBox="0 0 280 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="hat-shadow" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(26,16,8,0.25)"/>
-      </filter>
-      <linearGradient id="crown-grad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="${lightenColor(hatColor, 20)}"/>
-        <stop offset="100%" stop-color="${darkenColor(hatColor, 15)}"/>
-      </linearGradient>
-      <linearGradient id="brim-grad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="${hatColor}"/>
-        <stop offset="100%" stop-color="${darkenColor(hatColor, 25)}"/>
-      </linearGradient>
-    </defs>
-
-    <!-- Brim -->
-    <path d="${brimPath}" fill="url(#brim-grad)" stroke="${strokeColor}" stroke-width="0.5" filter="url(#hat-shadow)"/>
-
-    <!-- Crown -->
-    <path d="${crownPath}" fill="url(#crown-grad)" stroke="${strokeColor}" stroke-width="0.5"/>
-
-    <!-- Crown crease for classic/pinch -->
-    ${(crownShape === 'classic') ? `<line x1="${cx}" y1="${topY}" x2="${cx}" y2="${baseY - 5}" stroke="${darkenColor(hatColor, 20)}" stroke-width="1.5" opacity="0.5"/>` : ''}
-    ${(crownShape === 'pinch') ? `<path d="M ${cx} ${topY - 2} C ${cx - 6} ${topY + 10}, ${cx - 3} ${topY + 25}, ${cx} ${baseY - 5}" stroke="${darkenColor(hatColor, 20)}" stroke-width="1" fill="none" opacity="0.5"/>` : ''}
-
-    <!-- Crown highlight -->
-    <path d="M ${cx - crownW + 12} ${baseY - 20} C ${cx - crownW + 16} ${topY + 20}, ${cx - 20} ${topY + 8}, ${cx - 12} ${topY + 4}"
-      stroke="${highlightColor}" stroke-width="2" fill="none" opacity="0.6"/>
-
-    <!-- Band -->
-    <path d="M ${cx - crownW} ${bandY1} C ${cx - crownW + 4} ${bandY1 - 2}, ${cx} ${bandY1 - 1}, ${cx + crownW} ${bandY1}
-      L ${cx + crownW} ${bandY2} C ${cx} ${bandY2 + 1}, ${cx - crownW + 4} ${bandY2 + 2}, ${cx - crownW} ${bandY2} Z"
-      fill="${bandColor}" opacity="0.85"/>
-
-    <!-- Brim top highlight -->
-    <path d="M ${cx - crownW + 5} ${baseY + 4} C ${cx} ${baseY - 2}, ${cx + crownW - 5} ${baseY + 4}, ${cx + crownW - 5} ${baseY + 4}"
-      stroke="${highlightColor}" stroke-width="1.5" fill="none" opacity="0.5"/>
-  </svg>`;
-
-  document.getElementById('hat-svg-wrap').innerHTML = svg;
-}
-
-function isLightColor(hex) {
-  const r = parseInt(hex.slice(1,3),16);
-  const g = parseInt(hex.slice(3,5),16);
-  const b = parseInt(hex.slice(5,7),16);
-  return (r * 0.299 + g * 0.587 + b * 0.114) > 140;
-}
-
-function lightenColor(hex, pct) {
-  return adjustColor(hex, pct);
-}
-function darkenColor(hex, pct) {
-  return adjustColor(hex, -pct);
-}
-function adjustColor(hex, pct) {
-  const h = hex.replace('#','');
-  const r = Math.max(0, Math.min(255, parseInt(h.slice(0,2),16) + Math.round(pct * 2.55)));
-  const g = Math.max(0, Math.min(255, parseInt(h.slice(2,4),16) + Math.round(pct * 2.55)));
-  const b = Math.max(0, Math.min(255, parseInt(h.slice(4,6),16) + Math.round(pct * 2.55)));
-  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
-}
-
 function updatePreview() {
-  drawHatSVG();
   document.getElementById('pv-color').textContent = state.color || '—';
   document.getElementById('pv-crown').textContent = state.crown ? state.crown.replace(' / Rancher','') : '—';
   document.getElementById('pv-brim').textContent = state.brim ? state.brim.split(' Brim')[0] || state.brim : '—';
@@ -1760,7 +1604,6 @@ function startPath(path) {
   }
   document.getElementById('path-selector').style.display = '';
   document.getElementById('reset-bar').style.display = 'flex';
-  drawHatSVG();
 
   setTimeout(() => {
     document.getElementById('finder-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1843,7 +1686,6 @@ function resetAll() {
 }
 
 // ── INIT ──
-drawHatSVG();
 </script>
 </body>
 </html>
