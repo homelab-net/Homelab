@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Signature Hat — Broadmoor Hat Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --bone: #EDE5D0;
+    --tan: #C8A882;
+    --camel: #B8892A;
+    --camel-light: #D4A843;
+    --brown: #3D2B1F;
+    --dark: #1A1008;
+    --rust: #8B3A2A;
+    --sage: #6B7A5E;
+    --navy: #2A3550;
+    --sand: #D4B896;
+    --chocolate: #5C3317;
+    --silverbelly: #B8B0A0;
+    --shadow: 0 2px 12px rgba(26,16,8,0.08);
+    --shadow-md: 0 4px 24px rgba(26,16,8,0.12);
+    --shadow-lg: 0 8px 40px rgba(26,16,8,0.16);
+    --radius: 4px;
+    --transition: 0.3s ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+
+  /* ── UTILITY ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .hidden { display: none !important; }
+  .fade-in { animation: fadeIn 0.5s ease forwards; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--dark);
+    padding: 16px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(200,168,130,0.2);
+  }
+  .site-header .logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--tan);
+    text-transform: uppercase;
+  }
+  .site-header .logo-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(200,168,130,0.6);
+    margin-top: 2px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--dark);
+    color: var(--cream);
+    text-align: center;
+    padding: 80px 24px 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,137,42,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--cream);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--tan);
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(245,240,232,0.7);
+    max-width: 520px;
+    margin: 0 auto 48px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--tan), transparent);
+  }
+  .hero-divider span {
+    font-size: 18px;
+    color: var(--tan);
+    opacity: 0.6;
+  }
+  .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--camel);
+    color: var(--dark);
+  }
+  .btn-primary:hover { background: var(--camel-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(200,168,130,0.5);
+  }
+  .btn-outline:hover { border-color: var(--tan); color: var(--tan); transform: translateY(-1px); }
+  .btn-dark { background: var(--dark); color: var(--cream); }
+  .btn-dark:hover { background: var(--brown); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--brown);
+    border: 1px solid rgba(61,43,31,0.25);
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+  .btn-ghost:hover { border-color: var(--brown); background: rgba(61,43,31,0.05); }
+
+  /* ── MAIN LAYOUT ── */
+  .finder-section { padding: 64px 0; }
+  .finder-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 48px;
+    align-items: start;
+  }
+  @media(max-width:768px) {
+    .finder-layout { grid-template-columns: 1fr; }
+    .preview-panel { order: -1; }
+  }
+
+  /* ── PATH TABS ── */
+  .path-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 40px;
+    border: 1px solid rgba(61,43,31,0.15);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bone);
+  }
+  .path-tab {
+    flex: 1;
+    padding: 16px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(61,43,31,0.5);
+    transition: all var(--transition);
+    text-align: center;
+  }
+  .path-tab.active {
+    background: var(--dark);
+    color: var(--tan);
+  }
+  .path-tab:not(.active):hover { color: var(--brown); background: rgba(61,43,31,0.05); }
+
+  /* ── INSPIRATION PATH ── */
+  .inspiration-area {
+    background: white;
+    border: 1px solid rgba(61,43,31,0.1);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .inspiration-area h3 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--brown);
+  }
+  .inspiration-area .lead {
+    font-size: 14px;
+    color: rgba(61,43,31,0.6);
+    margin-bottom: 24px;
+  }
+  .inspiration-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--dark);
+    background: var(--cream);
+    border: 1px solid rgba(61,43,31,0.15);
+    border-radius: var(--radius);
+    resize: vertical;
+    transition: border-color var(--transition);
+    line-height: 1.6;
+  }
+  .inspiration-textarea:focus {
+    outline: none;
+    border-color: var(--camel);
+    box-shadow: 0 0 0 3px rgba(184,137,42,0.1);
+  }
+  .inspiration-textarea::placeholder { color: rgba(61,43,31,0.35); }
+  .example-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 24px;
+  }
+  .chip {
+    padding: 6px 14px;
+    font-size: 12px;
+    background: var(--bone);
+    border: 1px solid rgba(61,43,31,0.12);
+    border-radius: 20px;
+    cursor: pointer;
+    color: rgba(61,43,31,0.7);
+    transition: all var(--transition);
+    font-family: 'Inter', sans-serif;
+  }
+  .chip:hover { background: var(--tan); color: white; border-color: var(--tan); }
+
+  /* ── PROGRESS INDICATOR ── */
+  .progress-bar-wrap {
+    margin-bottom: 32px;
+  }
+  .progress-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 8px;
+  }
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  .progress-step:last-child { flex: 0; }
+  .step-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(61,43,31,0.2);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(61,43,31,0.4);
+    transition: all var(--transition);
+    flex-shrink: 0;
+  }
+  .step-dot.active { border-color: var(--camel); background: var(--camel); color: white; }
+  .step-dot.done { border-color: var(--brown); background: var(--brown); color: var(--cream); }
+  .step-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(61,43,31,0.15);
+    transition: background var(--transition);
+  }
+  .step-line.done { background: var(--brown); }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+  }
+  .progress-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(61,43,31,0.4);
+    font-weight: 500;
+    text-align: center;
+    flex: 1;
+  }
+  .progress-label:last-child { flex: 0; min-width: 60px; text-align: right; }
+  .progress-label.active { color: var(--camel); }
+  .progress-label.done { color: var(--brown); }
+
+  /* ── STEP SECTIONS ── */
+  .step-panel { display: none; }
+  .step-panel.active { display: block; animation: fadeIn 0.4s ease; }
+  .step-title {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+  .step-sub {
+    font-size: 13px;
+    color: rgba(61,43,31,0.55);
+    margin-bottom: 28px;
+  }
+  .field-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(61,43,31,0.5);
+    margin-bottom: 12px;
+    margin-top: 24px;
+    display: block;
+  }
+  .field-label:first-child { margin-top: 0; }
+
+  /* ── COLOR SWATCHES ── */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .color-swatch {
+    position: relative;
+    cursor: pointer;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all var(--transition);
+  }
+  .color-swatch.selected { border-color: var(--camel); box-shadow: 0 0 0 1px var(--camel); }
+  .swatch-color {
+    height: 48px;
+    width: 100%;
+  }
+  .swatch-label {
+    padding: 6px 6px 8px;
+    font-size: 10px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--brown);
+    letter-spacing: 0.05em;
+    background: white;
+    border-top: 1px solid rgba(61,43,31,0.08);
+  }
+  .color-swatch:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  /* ── OPTION CHIPS GRID ── */
+  .option-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .option-chip {
+    padding: 9px 18px;
+    font-size: 13px;
+    background: white;
+    border: 1px solid rgba(61,43,31,0.15);
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--brown);
+    transition: all var(--transition);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    position: relative;
+  }
+  .option-chip:hover { border-color: var(--tan); background: rgba(200,168,130,0.08); }
+  .option-chip.selected {
+    background: var(--dark);
+    color: var(--cream);
+    border-color: var(--dark);
+  }
+  .option-chip .tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: var(--cream);
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+    line-height: 1.4;
+    max-width: 200px;
+    white-space: normal;
+    text-align: center;
+  }
+  .option-chip .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--dark);
+  }
+  .option-chip:hover .tooltip { display: block; }
+
+  /* ── STEP NAV ── */
+  .step-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(61,43,31,0.1);
+  }
+
+  /* ── PREVIEW PANEL ── */
+  .preview-panel {
+    position: sticky;
+    top: 80px;
+  }
+  .preview-card {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .preview-card h4 {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+  .hat-svg-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    margin-bottom: 20px;
+  }
+  .hat-svg-wrap svg { transition: all 0.4s ease; }
+  .preview-details { text-align: left; }
+  .preview-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 11px;
+  }
+  .preview-detail-row:last-child { border-bottom: none; }
+  .preview-detail-row .pk { color: rgba(200,168,130,0.6); letter-spacing: 0.05em; text-transform: uppercase; font-size: 9px; }
+  .preview-detail-row .pv { color: var(--cream); font-weight: 400; }
+
+  /* ── RESULTS ── */
+  .results-section { padding: 64px 0; background: var(--bone); }
+  .results-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .results-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--camel);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .results-header h2 {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--brown);
+  }
+
+  .result-main {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .result-top {
+    background: var(--dark);
+    padding: 32px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+  @media(max-width:600px) { .result-top { grid-template-columns: 1fr; } }
+  .result-style-name {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+  }
+  .result-style-name em { font-style: italic; color: var(--tan); }
+  .result-vibe-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(184,137,42,0.2);
+    border: 1px solid rgba(184,137,42,0.3);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--tan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+  .confidence-wrap { text-align: right; min-width: 100px; }
+  .confidence-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(200,168,130,0.5); margin-bottom: 6px; }
+  .confidence-pct { font-size: 28px; font-weight: 300; color: var(--tan); font-family: 'Playfair Display', serif; }
+  .confidence-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--camel), var(--tan));
+    border-radius: 2px;
+    transition: width 0.8s ease;
+  }
+
+  .result-body { padding: 32px 40px; }
+  .result-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(26,16,8,0.75);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    border-left: 3px solid var(--tan);
+    padding-left: 20px;
+    margin-bottom: 32px;
+  }
+  .result-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .spec-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 16px;
+    border: 1px solid rgba(61,43,31,0.08);
+  }
+  .spec-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(61,43,31,0.4);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .spec-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--brown);
+  }
+  .spec-value.color-swatch-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .swatch-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(61,43,31,0.15);
+    flex-shrink: 0;
+  }
+
+  /* Alternatives */
+  .alternatives { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media(max-width:600px) { .alternatives { grid-template-columns: 1fr; } }
+  .alt-card {
+    background: white;
+    border: 1px solid rgba(61,43,31,0.1);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .alt-card:hover { border-color: var(--tan); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .alt-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .alt-tag.classic { background: var(--bone); color: var(--brown); }
+  .alt-tag.bold { background: var(--dark); color: var(--tan); }
+  .alt-card h4 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+  .alt-card p { font-size: 13px; color: rgba(61,43,31,0.6); line-height: 1.6; }
+
+  /* ── CONVERSION ── */
+  .conversion-section { padding: 80px 0; background: var(--cream); }
+  .conversion-header { text-align: center; margin-bottom: 56px; }
+  .conversion-header h2 { font-size: 36px; font-weight: 500; color: var(--brown); margin-bottom: 12px; }
+  .conversion-header p { font-size: 15px; color: rgba(61,43,31,0.6); max-width: 460px; margin: 0 auto; }
+
+  .cta-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  .cta-card {
+    background: white;
+    border: 1px solid rgba(61,43,31,0.1);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    box-shadow: var(--shadow);
+  }
+  .cta-card:hover { border-color: var(--camel); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .cta-card.primary { background: var(--dark); border-color: var(--dark); color: var(--cream); }
+  .cta-card-icon { font-size: 22px; margin-bottom: 12px; display: block; }
+  .cta-card h4 { font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+  .cta-card.primary h4 { color: var(--tan); }
+  .cta-card p { font-size: 12px; color: rgba(61,43,31,0.5); line-height: 1.5; }
+  .cta-card.primary p { color: rgba(200,168,130,0.6); }
+
+  /* ── FORM ── */
+  .consultation-form {
+    background: white;
+    border: 1px solid rgba(61,43,31,0.1);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .consultation-form h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+  .consultation-form .form-sub {
+    font-size: 13px;
+    color: rgba(61,43,31,0.55);
+    margin-bottom: 28px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:520px) { .form-row { grid-template-columns: 1fr; } }
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(61,43,31,0.5);
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--dark);
+    background: var(--cream);
+    border: 1px solid rgba(61,43,31,0.15);
+    border-radius: var(--radius);
+    transition: border-color var(--transition);
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--camel);
+    box-shadow: 0 0 0 3px rgba(184,137,42,0.1);
+  }
+  .form-group textarea { min-height: 100px; resize: vertical; }
+  .style-summary-box {
+    background: var(--cream);
+    border: 1px solid rgba(61,43,31,0.1);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: rgba(61,43,31,0.6);
+    line-height: 1.7;
+  }
+  .style-summary-box strong { color: var(--brown); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--dark);
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid rgba(200,168,130,0.1);
+  }
+  .site-footer .footer-logo {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(200,168,130,0.5);
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+  .site-footer p {
+    font-size: 12px;
+    color: rgba(200,168,130,0.3);
+  }
+
+  /* ── SUCCESS ── */
+  .success-message {
+    text-align: center;
+    padding: 40px;
+  }
+  .success-message h3 { font-size: 26px; color: var(--brown); margin-bottom: 12px; }
+  .success-message p { color: rgba(61,43,31,0.6); }
+
+  /* ── RESET BUTTON ── */
+  .reset-bar {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto 48px;
+    max-width: 300px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(61,43,31,0.15);
+  }
+  .section-divider span {
+    font-size: 16px;
+    color: var(--tan);
+  }
+
+  /* Not-yet-started state */
+  .finder-placeholder {
+    text-align: center;
+    padding: 48px 24px;
+    color: rgba(61,43,31,0.35);
+  }
+  .finder-placeholder p { font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">Broadmoor Hat Co.</div>
+  <div class="logo-sub">Handcrafted in the American West</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Custom Hat Concierge</p>
+    <h1>Find Your <em>Signature</em> Hat</h1>
+    <p class="hero-sub">Whether you know every detail or just a feeling — we'll help you discover the hat that's yours. No hat knowledge required.</p>
+    <div class="hero-divider"><span>✦</span></div>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="startPath('inspiration')">Start with Inspiration</button>
+      <button class="btn btn-outline" onclick="startPath('builder')">Build My Hat</button>
+    </div>
+  </div>
+</section>
+
+<!-- FINDER SECTION -->
+<section class="finder-section" id="finder-section">
+  <div class="container">
+
+    <div class="reset-bar" id="reset-bar" style="display:none;">
+      <button class="btn btn-ghost" onclick="resetAll()">↺ Start Over</button>
+    </div>
+
+    <div class="finder-layout">
+      <!-- LEFT: MAIN CONTENT -->
+      <div class="finder-main" id="finder-main">
+
+        <!-- PATH SELECTOR -->
+        <div id="path-selector">
+          <div class="path-tabs">
+            <button class="path-tab" id="tab-inspiration" onclick="switchTab('inspiration')">✦ Start with Inspiration</button>
+            <button class="path-tab" id="tab-builder" onclick="switchTab('builder')">◈ Build My Hat</button>
+          </div>
+        </div>
+
+        <!-- INSPIRATION PATH -->
+        <div id="path-inspiration" class="hidden">
+          <div class="inspiration-area">
+            <h3>Tell us what draws you in</h3>
+            <p class="lead">Describe a character, a feeling, a film, a moment. We'll translate it into a hat direction you can bring to Broadmoor.</p>
+            <textarea
+              class="inspiration-textarea"
+              id="inspiration-input"
+              placeholder="Try: 'Something like a Yellowstone hat but cleaner' or 'A wedding hat that still feels Western' or 'Dark, rugged, everyday wear'..."
+              rows="5"
+            ></textarea>
+            <div class="example-chips" id="example-chips">
+              <span class="chip" onclick="setChip(this)">Like a Yellowstone hat but cleaner</span>
+              <span class="chip" onclick="setChip(this)">Wedding hat, still Western</span>
+              <span class="chip" onclick="setChip(this)">Dark and rugged everyday</span>
+              <span class="chip" onclick="setChip(this)">Old film cowboy, elevated</span>
+              <span class="chip" onclick="setChip(this)">Flat brim, earthy colors</span>
+              <span class="chip" onclick="setChip(this)">Feminine and refined western</span>
+              <span class="chip" onclick="setChip(this)">Bold statement brim</span>
+            </div>
+            <button class="btn btn-primary" onclick="analyzeInspiration()">Find My Direction →</button>
+          </div>
+        </div>
+
+        <!-- BUILDER PATH -->
+        <div id="path-builder" class="hidden">
+
+          <!-- PROGRESS -->
+          <div class="progress-bar-wrap">
+            <div class="progress-steps">
+              <div class="progress-step">
+                <div class="step-dot active" id="dot-1">1</div>
+                <div class="step-line" id="line-1"></div>
+              </div>
+              <div class="progress-step">
+                <div class="step-dot" id="dot-2">2</div>
+                <div class="step-line" id="line-2"></div>
+              </div>
+              <div class="progress-step">
+                <div class="step-dot" id="dot-3">3</div>
+                <div class="step-line" id="line-3"></div>
+              </div>
+              <div class="progress-step">
+                <div class="step-dot" id="dot-4">4</div>
+              </div>
+            </div>
+            <div class="progress-labels">
+              <span class="progress-label active" id="lbl-1">Color</span>
+              <span class="progress-label" id="lbl-2">Shape</span>
+              <span class="progress-label" id="lbl-3">Character</span>
+              <span class="progress-label" id="lbl-4">Occasion</span>
+            </div>
+          </div>
+
+          <!-- STEP 1: COLOR -->
+          <div class="step-panel active" id="step-1">
+            <h2 class="step-title">What color calls to you?</h2>
+            <p class="step-sub">Choose the tone that feels most like you. Not sure? Pick "Not Sure" and we'll suggest based on your other choices.</p>
+            <div class="color-grid" id="color-grid">
+              <div class="color-swatch" onclick="selectColor(this,'Black','#111111')" data-value="Black"><div class="swatch-color" style="background:#111111;"></div><div class="swatch-label">Black</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Chocolate','#5C3317')" data-value="Chocolate"><div class="swatch-color" style="background:#5C3317;"></div><div class="swatch-label">Chocolate</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Sand','#D4B896')" data-value="Sand"><div class="swatch-color" style="background:#D4B896;"></div><div class="swatch-label">Sand</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Bone','#EDE5D0')" data-value="Bone"><div class="swatch-color" style="background:#EDE5D0; border: 1px solid #ccc;"></div><div class="swatch-label">Bone</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Silverbelly','#B8B0A0')" data-value="Silverbelly"><div class="swatch-color" style="background:#B8B0A0;"></div><div class="swatch-label">Silverbelly</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Camel','#B8892A')" data-value="Camel"><div class="swatch-color" style="background:#B8892A;"></div><div class="swatch-label">Camel</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Rust','#8B3A2A')" data-value="Rust"><div class="swatch-color" style="background:#8B3A2A;"></div><div class="swatch-label">Rust</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Sage','#6B7A5E')" data-value="Sage"><div class="swatch-color" style="background:#6B7A5E;"></div><div class="swatch-label">Sage / Olive</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Navy','#2A3550')" data-value="Navy"><div class="swatch-color" style="background:#2A3550;"></div><div class="swatch-label">Navy</div></div>
+              <div class="color-swatch" onclick="selectColor(this,'Not Sure','#C8A882')" data-value="Not Sure"><div class="swatch-color" style="background: linear-gradient(135deg, #111 25%, #D4B896 25%, #D4B896 50%, #B8B0A0 50%, #B8B0A0 75%, #5C3317 75%);"></div><div class="swatch-label">Not Sure</div></div>
+            </div>
+            <div class="step-nav">
+              <span></span>
+              <button class="btn btn-primary" onclick="goStep(2)">Next: Shape & Structure →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: SHAPE -->
+          <div class="step-panel" id="step-2">
+            <h2 class="step-title">Shape & Structure</h2>
+            <p class="step-sub">Crown and brim define a hat's entire character. Choose what feels right — hover for a description of each style.</p>
+
+            <span class="field-label">Crown Style</span>
+            <div class="option-grid" id="crown-grid">
+              <div class="option-chip" onclick="selectOption(this,'crown','Classic Western')" data-value="Classic Western">Classic Western <span class="tooltip">A tall, creased crown with a traditional Western look. Timeless and versatile.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'crown','Teardrop')" data-value="Teardrop">Teardrop <span class="tooltip">A rounded, smooth crown tapering to a gentle peak. Elegant and refined.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'crown','Pinch Front')" data-value="Pinch Front">Pinch Front <span class="tooltip">Pinched at the front for a sharp, tailored look. Clean and intentional.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'crown','Gus / Rancher')" data-value="Gus / Rancher">Gus / Rancher <span class="tooltip">A lower, open crown with gentle shaping — practical and rugged.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'crown','Open Crown')" data-value="Open Crown">Open Crown <span class="tooltip">Arrives unshaped — you define the crease. Maximum customization.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'crown','Not Sure')" data-value="Not Sure">Not Sure</div>
+            </div>
+
+            <span class="field-label">Brim Style</span>
+            <div class="option-grid" id="brim-grid">
+              <div class="option-chip" onclick="selectOption(this,'brim','Flat Brim')" data-value="Flat Brim">Flat Brim <span class="tooltip">No curl — clean and modern. Popular in fashion-forward western looks.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brim','Slight Curve')" data-value="Slight Curve">Slight Curve <span class="tooltip">Subtle upward roll at the edges. Balanced and versatile.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brim','Traditional Curve')" data-value="Traditional Curve">Traditional Curve <span class="tooltip">The classic western brim roll — familiar and authentic.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brim','Pencil Curl')" data-value="Pencil Curl">Pencil Curl <span class="tooltip">Tight, tight upward curl at the edge — a bold, dressier finishing detail.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brim','Wide Statement')" data-value="Wide Statement">Wide Statement <span class="tooltip">A dramatic, wide brim that commands attention. Confident and striking.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brim','Not Sure')" data-value="Not Sure">Not Sure</div>
+            </div>
+
+            <span class="field-label">Brim Width</span>
+            <div class="option-grid" id="brimwidth-grid">
+              <div class="option-chip" onclick="selectOption(this,'brimWidth','Narrow')" data-value="Narrow">Narrow <span class="tooltip">3" or less. Understated, refined.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brimWidth','Medium')" data-value="Medium">Medium <span class="tooltip">3–4". The classic, works with nearly everything.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brimWidth','Wide')" data-value="Wide">Wide <span class="tooltip">4–5". A strong, presence-making choice.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'brimWidth','Extra Wide')" data-value="Extra Wide">Extra Wide <span class="tooltip">5"+ brim. Full statement, full sun coverage, full character.</span></div>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+              <button class="btn btn-primary" onclick="goStep(3)">Next: Character & Detail →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: CHARACTER -->
+          <div class="step-panel" id="step-3">
+            <h2 class="step-title">Character & Detail</h2>
+            <p class="step-sub">Band and vibe determine the soul of the hat. These choices are as personal as the rest.</p>
+
+            <span class="field-label">Hat Band</span>
+            <div class="option-grid" id="band-grid">
+              <div class="option-chip" onclick="selectOption(this,'band','Simple Ribbon')" data-value="Simple Ribbon">Simple Ribbon <span class="tooltip">Clean grosgrain or satin ribbon. Classic, understated.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Leather Band')" data-value="Leather Band">Leather Band <span class="tooltip">Flat or laced leather. Rugged, warm, and handcrafted in feel.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Braided Leather')" data-value="Braided Leather">Braided Leather <span class="tooltip">Woven leather band — heritage texture with a refined edge.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Minimal Dress Band')" data-value="Minimal Dress Band">Minimal Dress Band <span class="tooltip">Slim, tailored. The choice for dress-western and events.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Feather Accent')" data-value="Feather Accent">Feather Accent <span class="tooltip">A single feather or cluster for personality and flair.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Western Statement Band')" data-value="Western Statement Band">Western Statement <span class="tooltip">Concho, bolo-style, or decorative — for those who want character upfront.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Custom Branded')" data-value="Custom Branded">Custom Branded <span class="tooltip">Your brand, initials, or ranch logo incorporated into the band or interior.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'band','Not Sure')" data-value="Not Sure">Not Sure</div>
+            </div>
+
+            <span class="field-label">Overall Vibe</span>
+            <div class="option-grid" id="vibe-grid">
+              <div class="option-chip" onclick="selectOption(this,'vibe','Classic Western')" data-value="Classic Western">Classic Western</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Rugged Ranch')" data-value="Rugged Ranch">Rugged Ranch</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Refined Dress Western')" data-value="Refined Dress Western">Refined Dress Western</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Heritage / Legacy')" data-value="Heritage / Legacy">Heritage / Legacy</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Modern Minimalist')" data-value="Modern Minimalist">Modern Minimalist</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Feminine Western')" data-value="Feminine Western">Feminine Western</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Bold Statement')" data-value="Bold Statement">Bold Statement</div>
+              <div class="option-chip" onclick="selectOption(this,'vibe','Everyday Timeless')" data-value="Everyday Timeless">Everyday Timeless</div>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+              <button class="btn btn-primary" onclick="goStep(4)">Next: Occasion →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: OCCASION -->
+          <div class="step-panel" id="step-4">
+            <h2 class="step-title">Purpose & Occasion</h2>
+            <p class="step-sub">Context shapes everything. Knowing where you'll wear it — and how this hat fits your life — helps us get it right.</p>
+
+            <span class="field-label">Occasion</span>
+            <div class="option-grid" id="occasion-grid">
+              <div class="option-chip" onclick="selectOption(this,'occasion','Everyday')" data-value="Everyday">Everyday</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Wedding')" data-value="Wedding">Wedding</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Event / Party')" data-value="Event / Party">Event / Party</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Ranch / Outdoor')" data-value="Ranch / Outdoor">Ranch / Outdoor</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Photoshoot / Branding')" data-value="Photoshoot / Branding">Photoshoot / Branding</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Concert / Festival')" data-value="Concert / Festival">Concert / Festival</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Gift')" data-value="Gift">Gift</div>
+              <div class="option-chip" onclick="selectOption(this,'occasion','Not Sure')" data-value="Not Sure">Not Sure</div>
+            </div>
+
+            <span class="field-label">What kind of hat is this?</span>
+            <div class="option-grid" id="usecase-grid">
+              <div class="option-chip" onclick="selectOption(this,'useCase','Fully Custom Heirloom')" data-value="Fully Custom Heirloom">Fully Custom Heirloom <span class="tooltip">A one-of-a-kind hat built to last generations — our most personal work.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'useCase','Everyday Signature Hat')" data-value="Everyday Signature Hat">Everyday Signature Hat <span class="tooltip">The hat you reach for every morning. Durable, comfortable, and truly yours.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'useCase','Event / Wedding Hat')" data-value="Event / Wedding Hat">Event / Wedding Hat <span class="tooltip">A hat built for a moment — refined, intentional, and unforgettable.</span></div>
+              <div class="option-chip" onclick="selectOption(this,'useCase','Hat Refresh / Reshape')" data-value="Hat Refresh / Reshape">Hat Refresh / Reshape <span class="tooltip">You have a beloved hat that needs new life — new shape, clean, or updated band.</span></div>
+            </div>
+
+            <span class="field-label">Inspiration Source</span>
+            <div class="option-grid" id="inspsource-grid">
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Actor / Character')" data-value="Actor / Character">Actor / Character</div>
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Film / TV')" data-value="Film / TV">Film / TV</div>
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Personal Style')" data-value="Personal Style">Personal Style</div>
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Outfit / Wardrobe')" data-value="Outfit / Wardrobe">Outfit / Wardrobe</div>
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Western Heritage')" data-value="Western Heritage">Western Heritage</div>
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Social / Pinterest')" data-value="Social / Pinterest">Social / Pinterest</div>
+              <div class="option-chip" onclick="selectOption(this,'inspSource','Not Sure')" data-value="Not Sure">Not Sure — help me decide</div>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(3)">← Back</button>
+              <button class="btn btn-primary" onclick="generateResults()">See My Hat Direction →</button>
+            </div>
+          </div>
+
+        </div><!-- /path-builder -->
+
+      </div><!-- /finder-main -->
+
+      <!-- RIGHT: PREVIEW PANEL -->
+      <div class="preview-panel" id="preview-panel">
+        <div class="preview-card">
+          <h4>Live Preview</h4>
+          <div class="hat-svg-wrap" id="hat-svg-wrap">
+            <!-- SVG rendered by JS -->
+          </div>
+          <div class="preview-details" id="preview-details">
+            <div class="preview-detail-row">
+              <span class="pk">Color</span>
+              <span class="pv" id="pv-color">—</span>
+            </div>
+            <div class="preview-detail-row">
+              <span class="pk">Crown</span>
+              <span class="pv" id="pv-crown">—</span>
+            </div>
+            <div class="preview-detail-row">
+              <span class="pk">Brim</span>
+              <span class="pv" id="pv-brim">—</span>
+            </div>
+            <div class="preview-detail-row">
+              <span class="pk">Band</span>
+              <span class="pv" id="pv-band">—</span>
+            </div>
+            <div class="preview-detail-row">
+              <span class="pk">Vibe</span>
+              <span class="pv" id="pv-vibe">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /finder-layout -->
+  </div><!-- /container -->
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="results-section hidden" id="results-section">
+  <div class="container">
+    <div class="results-header">
+      <p class="results-eyebrow">Your Recommendation</p>
+      <h2>Your Recommended Hat Direction</h2>
+    </div>
+
+    <!-- MAIN RESULT -->
+    <div class="result-main fade-in">
+      <div class="result-top">
+        <div>
+          <div class="result-style-name" id="result-style-name">The Heritage Classic</div>
+          <div class="result-vibe-tag" id="result-vibe-tag">Classic Western</div>
+        </div>
+        <div class="confidence-wrap">
+          <div class="confidence-label">Match</div>
+          <div class="confidence-pct" id="confidence-pct">92%</div>
+          <div class="confidence-bar">
+            <div class="confidence-fill" id="confidence-fill" style="width:92%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="result-body">
+        <p class="result-desc" id="result-desc">A timeless western silhouette with a balanced crown and traditional brim, built for those who want authentic ranch character without sacrificing a refined, dress-ready presentation.</p>
+        <div class="result-specs">
+          <div class="spec-card">
+            <div class="spec-label">Recommended Color</div>
+            <div class="spec-value color-swatch-inline">
+              <span class="swatch-dot" id="spec-color-dot"></span>
+              <span id="spec-color">Chocolate</span>
+            </div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Crown Direction</div>
+            <div class="spec-value" id="spec-crown">Classic Western</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Brim Direction</div>
+            <div class="spec-value" id="spec-brim">Traditional Curve, Medium Width</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Band</div>
+            <div class="spec-value" id="spec-band">Leather Band</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Overall Vibe</div>
+            <div class="spec-value" id="spec-vibe">Heritage / Legacy</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Best Occasion</div>
+            <div class="spec-value" id="spec-occasion">Everyday &amp; Ranch</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALTERNATIVES -->
+    <div class="section-divider"><span>✦</span></div>
+    <div class="alternatives fade-in">
+      <div class="alt-card" id="alt-card-1" onclick="selectAlt(0)">
+        <span class="alt-tag classic" id="alt-tag-1">More Classic</span>
+        <h4 id="alt-name-1">The Dressed Ranchero</h4>
+        <p id="alt-desc-1">A polished, dress-ready interpretation with a cleaner finish and refined band detail.</p>
+      </div>
+      <div class="alt-card" id="alt-card-2" onclick="selectAlt(1)">
+        <span class="alt-tag bold" id="alt-tag-2">More Bold</span>
+        <h4 id="alt-name-2">The Working West</h4>
+        <p id="alt-desc-2">A rugged, working-heritage silhouette with deeper character and earned patina feel.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONVERSION SECTION -->
+<section class="conversion-section hidden" id="conversion-section">
+  <div class="container">
+    <div class="conversion-header">
+      <h2>Ready to Make It Yours?</h2>
+      <p>Every Broadmoor hat begins with a conversation. Choose how you'd like to take the next step.</p>
+    </div>
+
+    <div class="cta-cards">
+      <div class="cta-card primary" onclick="scrollToForm()">
+        <span class="cta-card-icon">☆</span>
+        <h4>Book a Consultation</h4>
+        <p>Sit down with our hat makers — in person or by phone — and bring your style profile.</p>
+      </div>
+      <div class="cta-card" onclick="scrollToForm()">
+        <span class="cta-card-icon">◈</span>
+        <h4>Request This Hat</h4>
+        <p>Send us your recommendation and we'll reach out to discuss the details and next steps.</p>
+      </div>
+      <div class="cta-card" onclick="saveStyle()">
+        <span class="cta-card-icon">⊙</span>
+        <h4>Save My Style</h4>
+        <p>We'll email you your full hat profile so you have it when you're ready.</p>
+      </div>
+      <div class="cta-card" onclick="scrollToForm()">
+        <span class="cta-card-icon">✦</span>
+        <h4>Bring to My Appointment</h4>
+        <p>Already have an appointment? Submit your profile and we'll have it ready before you arrive.</p>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="consultation-form" id="consultation-form">
+      <h3>Send Your Hat Profile</h3>
+      <p class="form-sub">Tell us a bit about yourself and we'll reach out within one business day.</p>
+
+      <div class="style-summary-box" id="form-summary-box">
+        <strong>Your Hat Profile:</strong> Loading...
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="form-name" placeholder="First & last name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="form-email" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Occasion / Timeline</label>
+        <select id="form-occasion">
+          <option value="">Select your occasion...</option>
+          <option>Everyday wear</option>
+          <option>Wedding or event</option>
+          <option>Ranch / outdoor use</option>
+          <option>Gift for someone</option>
+          <option>Photoshoot / branding</option>
+          <option>Concert / festival</option>
+          <option>No specific occasion — just want the right hat</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Anything else you'd like us to know?</label>
+        <textarea id="form-notes" placeholder="Budget range, specific references, timeline, or questions..."></textarea>
+      </div>
+      <textarea id="form-profile-hidden" style="display:none;"></textarea>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="submitForm()">Send My Hat Profile →</button>
+    </div>
+
+    <div class="success-message hidden" id="success-message">
+      <h3>Your hat profile has been received.</h3>
+      <p>We'll be in touch within one business day to begin your consultation.<br>Until then — thank you for trusting Broadmoor Hat Co.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-logo">Broadmoor Hat Co.</div>
+  <p>Handcrafted Custom & Ready-to-Wear Hats — Colorado</p>
+</footer>
+
+<script>
+// ── STATE ──
+const state = {
+  path: null,
+  color: null, colorHex: '#B8892A',
+  crown: null, brim: null, brimWidth: null,
+  band: null, vibe: null,
+  occasion: null, useCase: null, inspSource: null,
+  currentStep: 1,
+  result: null
+};
+
+// ── COLOR HEX MAP ──
+const colorHexMap = {
+  'Black': '#111111', 'Chocolate': '#5C3317', 'Sand': '#D4B896',
+  'Bone': '#EDE5D0', 'Silverbelly': '#B8B0A0', 'Camel': '#B8892A',
+  'Rust': '#8B3A2A', 'Sage': '#6B7A5E', 'Navy': '#2A3550',
+  'Not Sure': '#B8892A'
+};
+
+// ── HAT PROFILES ──
+const hatProfiles = {
+  heritage: {
+    id: 'heritage',
+    styleName: 'The Heritage Classic',
+    vibe: 'Heritage / Legacy',
+    color: 'Chocolate',
+    colorHex: '#5C3317',
+    crown: 'Classic Western — a tall, creased silhouette',
+    brim: 'Traditional Western Curve, Medium Width (3½")',
+    band: 'Leather Band',
+    occasion: 'Everyday, Ranch, and Casual Dress',
+    confidence: 91,
+    desc: 'A rancher\'s hat refined over generations — the Classic Western silhouette with a full-bodied crown and honest brim. Chocolate felt with a leather band creates a hat that looks like it earned its character, even the day it\'s made. This is a hat built to be worn hard and handed down.',
+    alt1Name: 'The Dressed Ranchero', alt1Tag: 'More Refined', alt1Desc: 'The same heritage DNA, elevated — silverbelly felt, a minimal dress band, and a slight pencil curl. Ranch heritage with an event-ready finish.',
+    alt2Name: 'The Working West', alt2Tag: 'More Rugged', alt2Desc: 'Blacked out, lower crown, wider brim, and braided leather band. Maximum working-western character with serious presence.'
+  },
+  dress: {
+    id: 'dress',
+    styleName: 'The Dress Western',
+    vibe: 'Refined Dress Western',
+    color: 'Silverbelly',
+    colorHex: '#B8B0A0',
+    crown: 'Teardrop or Pinch Front — clean and tailored',
+    brim: 'Slight Curve, Medium Width (3")',
+    band: 'Minimal Dress Band or Braided Leather',
+    occasion: 'Wedding, Events, and Elevated Occasions',
+    confidence: 94,
+    desc: 'A refined western silhouette with a balanced brim and rich felt finish — designed for someone who wants authentic ranch character with a cleaner, dress-ready presentation. Silverbelly or bone felt with a tailored band. The hat that looks equally right at an altar or an art gallery.',
+    alt1Name: 'The Refined Ranchero', alt1Tag: 'More Classic', alt1Desc: 'Pinch front crown, traditional curve, leather band — the dress western with slightly more working-ranch backbone.',
+    alt2Name: 'The Statement Bride', alt2Tag: 'More Bold', alt2Desc: 'Wide brim, open crown, bone felt with a statement band or feather accent. Unmistakable and unforgettable for a big day.'
+  },
+  classic: {
+    id: 'classic',
+    styleName: 'The Silver Screen Classic',
+    vibe: 'Classic Western',
+    color: 'Sand or Silverbelly',
+    colorHex: '#D4B896',
+    crown: 'Classic Western — tall and proud',
+    brim: 'Traditional Curve, Medium to Wide Width (3½–4")',
+    band: 'Simple Ribbon or Leather Band',
+    occasion: 'Everyday, Events, and Cultural Occasions',
+    confidence: 88,
+    desc: 'The hat that launched a thousand films. A tall, proud crown with a wide, traditionally-curved brim — a silhouette that\'s spent seventy years being copied because nothing else comes close. Sand or silverbelly felt. Clean lines, earned gravitas.',
+    alt1Name: 'The Quiet Hero', alt1Tag: 'More Understated', alt1Desc: 'Same classic silhouette, slightly lower crown and narrower brim — for those who want the reference without the theater.',
+    alt2Name: 'The Legend', alt2Tag: 'More Statement', alt2Desc: 'Wider brim, taller crown, full classic treatment. The hat for someone who isn\'t afraid to walk into a room and own it.'
+  },
+  modern: {
+    id: 'modern',
+    styleName: 'The Modern Western',
+    vibe: 'Modern Minimalist',
+    color: 'Black or Bone',
+    colorHex: '#111111',
+    crown: 'Teardrop or Pinch Front — clean geometry',
+    brim: 'Flat Brim, Narrow to Medium Width (2½–3")',
+    band: 'Simple Ribbon or Minimal Dress Band',
+    occasion: 'Everyday, Urban Western, Photoshoots',
+    confidence: 89,
+    desc: 'Western DNA stripped down to its essential geometry. A flat brim, a clean teardrop crown, and a quiet band that lets the felt do the talking. This is the hat for someone who moves between worlds — ranch and city, tradition and contemporary — without apology.',
+    alt1Name: 'The Heritage Minimal', alt1Tag: 'More Traditional', alt1Desc: 'Swap the flat brim for a slight curve and add a leather band — the same clean lines with more working-western roots.',
+    alt2Name: 'The Urban Statement', alt2Tag: 'More Bold', alt2Desc: 'Push the flat brim wider, keep the clean crown — let the silhouette become a visual signature.'
+  },
+  statement: {
+    id: 'statement',
+    styleName: 'The Statement Western',
+    vibe: 'Bold Statement',
+    color: 'Black or Rust',
+    colorHex: '#111111',
+    crown: 'Open Crown or Classic Western — shaped to your preference',
+    brim: 'Wide Statement Brim (4½–5"+)',
+    band: 'Western Statement Band or Feather Accent',
+    occasion: 'Events, Festivals, Photoshoots, and Bold Everyday',
+    confidence: 86,
+    desc: 'This hat doesn\'t enter a room — it arrives. A wide, commanding brim with a dramatic crown and expressive band work. Black or rust felt. This is the hat for someone who has made peace with being looked at, and has decided to give people something worth seeing.',
+    alt1Name: 'The Bold Heritage', alt1Tag: 'More Grounded', alt1Desc: 'Wide brim with more traditional curve and a leather or braided band — statement presence with working-ranch roots.',
+    alt2Name: 'The Full Ceremony', alt2Tag: 'More Dramatic', alt2Desc: 'Maximum crown, maximum brim, feather accent or concho band. Worn once and remembered forever.'
+  },
+  feminine: {
+    id: 'feminine',
+    styleName: 'The Refined Ranchera',
+    vibe: 'Feminine Western',
+    color: 'Sand, Bone, or Camel',
+    colorHex: '#D4B896',
+    crown: 'Teardrop or Pinch Front — graceful and intentional',
+    brim: 'Slight Curve or Pencil Curl, Medium Width (3")',
+    band: 'Feather Accent, Braided Leather, or Minimal Dress Band',
+    occasion: 'Everyday, Events, Weddings, and Lifestyle',
+    confidence: 90,
+    desc: 'Feminine western doesn\'t mean small or delicate — it means intentional elegance with the spirit of the West woven through it. A graceful teardrop crown with a curved brim in warm sand or bone felt. A feather or braided band as the final signature. The hat that makes women stop women on the street.',
+    alt1Name: 'The Feminine Classic', alt1Tag: 'More Traditional', alt1Desc: 'Traditional curve, classic western crown, leather band — the same femininity grounded in working-ranch heritage.',
+    alt2Name: 'The Bride\'s Western', alt2Tag: 'More Event-Ready', alt2Desc: 'Bone or ivory felt, pencil curl, minimal dress band. The hat for a western wedding that never forgets where it comes from.'
+  }
+};
+
+// ── KEYWORD MAPPING ──
+const keywordMap = [
+  { keys: ['yellowstone','ranch','rancher','rugged','working','dark','gritty','worn','authentic'], profile: 'heritage', weight: 0 },
+  { keys: ['wedding','bride','bridal','elegant','clean','refined','dress','event','formal','elevated'], profile: 'dress', weight: 0 },
+  { keys: ['film','movie','cowboy','vintage','classic','old','western film','tv','show','character','actor','john wayne'], profile: 'classic', weight: 0 },
+  { keys: ['flat brim','modern','minimal','minimalist','simple','understated','clean lines','fashion','urban'], profile: 'modern', weight: 0 },
+  { keys: ['bold','statement','dramatic','wide','festival','concert','party','standout','striking'], profile: 'statement', weight: 0 },
+  { keys: ['feminine','soft','light','floral','earthy','woman','women','ranch wife','cowgirl','graceful'], profile: 'feminine', weight: 0 }
+];
+
+function analyzeInspiration() {
+  const text = document.getElementById('inspiration-input').value.toLowerCase().trim();
+  if (!text) { alert('Tell us something — even a word or two helps.'); return; }
+
+  const scores = JSON.parse(JSON.stringify(keywordMap));
+  scores.forEach(entry => {
+    entry.keys.forEach(k => {
+      if (text.includes(k)) entry.weight += 1;
+    });
+  });
+
+  scores.sort((a,b) => b.weight - a.weight);
+  const topProfile = scores[0].weight > 0 ? scores[0].profile : 'heritage';
+  const confidence = scores[0].weight > 0
+    ? Math.min(95, 72 + scores[0].weight * 8)
+    : 72;
+
+  const profile = hatProfiles[topProfile];
+  // Set a few state values from the profile
+  state.color = profile.color.split(' or ')[0];
+  state.colorHex = profile.colorHex;
+  state.vibe = profile.vibe;
+  state.result = { ...profile, confidence };
+
+  updatePreview();
+  showResults(state.result);
+}
+
+// ── BUILDER LOGIC ──
+function selectColor(el, name, hex) {
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  state.color = name;
+  state.colorHex = hex;
+  updatePreview();
+}
+
+function selectOption(el, field, value) {
+  const grid = el.closest('.option-grid');
+  grid.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state[field] = value;
+  updatePreview();
+}
+
+function goStep(n) {
+  const current = state.currentStep;
+  document.getElementById('step-' + current).classList.remove('active');
+  document.getElementById('step-' + n).classList.add('active');
+  state.currentStep = n;
+  updateProgressUI();
+  window.scrollTo({ top: document.getElementById('finder-section').offsetTop - 80, behavior: 'smooth' });
+}
+
+function updateProgressUI() {
+  const n = state.currentStep;
+  for (let i = 1; i <= 4; i++) {
+    const dot = document.getElementById('dot-' + i);
+    const lbl = document.getElementById('lbl-' + i);
+    dot.classList.remove('active','done');
+    lbl.classList.remove('active','done');
+    if (i < n) { dot.classList.add('done'); lbl.classList.add('done'); }
+    if (i === n) { dot.classList.add('active'); lbl.classList.add('active'); }
+    if (i < 4) {
+      const line = document.getElementById('line-' + i);
+      line.classList.toggle('done', i < n);
+    }
+  }
+}
+
+function generateResults() {
+  const profile = scoreBuilder();
+  state.result = profile;
+  showResults(profile);
+}
+
+function scoreBuilder() {
+  const { color, crown, brim, brimWidth, band, vibe, occasion } = state;
+
+  // Scoring matrix
+  const scores = {
+    heritage: 0, dress: 0, classic: 0, modern: 0, statement: 0, feminine: 0
+  };
+
+  // Color scoring
+  if (['Black','Chocolate','Rust'].includes(color)) { scores.heritage += 2; scores.statement += 1; }
+  if (['Bone','Silverbelly','Sand'].includes(color)) { scores.dress += 2; scores.classic += 1; scores.feminine += 1; }
+  if (['Camel','Sand'].includes(color)) { scores.classic += 1; scores.feminine += 1; }
+  if (color === 'Black') { scores.modern += 1; scores.statement += 1; }
+  if (color === 'Sage') { scores.modern += 1; scores.heritage += 1; }
+  if (color === 'Navy') { scores.modern += 2; }
+
+  // Crown scoring
+  if (['Classic Western'].includes(crown)) { scores.heritage += 2; scores.classic += 2; }
+  if (['Teardrop'].includes(crown)) { scores.dress += 2; scores.feminine += 2; scores.modern += 1; }
+  if (['Pinch Front'].includes(crown)) { scores.dress += 1; scores.modern += 2; scores.feminine += 1; }
+  if (['Gus / Rancher'].includes(crown)) { scores.heritage += 3; }
+  if (['Open Crown'].includes(crown)) { scores.statement += 2; scores.modern += 1; }
+
+  // Brim scoring
+  if (brim === 'Flat Brim') { scores.modern += 3; }
+  if (brim === 'Slight Curve') { scores.dress += 1; scores.feminine += 1; scores.modern += 1; }
+  if (brim === 'Traditional Curve') { scores.heritage += 2; scores.classic += 2; }
+  if (brim === 'Pencil Curl') { scores.dress += 2; scores.feminine += 2; }
+  if (brim === 'Wide Statement') { scores.statement += 3; }
+
+  // Brim width
+  if (brimWidth === 'Narrow') { scores.modern += 1; scores.dress += 1; }
+  if (brimWidth === 'Medium') { scores.heritage += 1; scores.classic += 1; }
+  if (brimWidth === 'Wide') { scores.heritage += 1; scores.statement += 1; }
+  if (brimWidth === 'Extra Wide') { scores.statement += 2; }
+
+  // Band scoring
+  if (['Leather Band','Braided Leather'].includes(band)) { scores.heritage += 2; }
+  if (['Minimal Dress Band','Simple Ribbon'].includes(band)) { scores.dress += 2; scores.modern += 1; }
+  if (band === 'Feather Accent') { scores.feminine += 2; scores.statement += 1; }
+  if (band === 'Western Statement Band') { scores.statement += 2; }
+  if (band === 'Custom Branded') { scores.heritage += 1; }
+
+  // Vibe scoring (heavy weight)
+  const vibeMap = {
+    'Classic Western': 'classic', 'Rugged Ranch': 'heritage',
+    'Refined Dress Western': 'dress', 'Heritage / Legacy': 'heritage',
+    'Modern Minimalist': 'modern', 'Feminine Western': 'feminine',
+    'Bold Statement': 'statement', 'Everyday Timeless': 'heritage'
+  };
+  if (vibe && vibeMap[vibe]) scores[vibeMap[vibe]] += 4;
+
+  // Occasion scoring
+  if (['Wedding','Event / Party'].includes(occasion)) { scores.dress += 3; scores.feminine += 1; }
+  if (['Ranch / Outdoor','Everyday'].includes(occasion)) { scores.heritage += 2; }
+  if (['Concert / Festival'].includes(occasion)) { scores.statement += 3; }
+  if (['Photoshoot / Branding'].includes(occasion)) { scores.modern += 2; scores.statement += 1; }
+
+  // Find winner
+  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+  const winner = sorted[0][0];
+  const total = sorted[0][1];
+  const confidence = Math.min(97, Math.max(72, 72 + (total - sorted[1][1]) * 6));
+
+  const profile = { ...hatProfiles[winner], confidence };
+  // Override with actual selections where we have them
+  if (color && color !== 'Not Sure') {
+    profile.color = color;
+    profile.colorHex = colorHexMap[color] || profile.colorHex;
+  }
+  if (vibe) profile.vibe = vibe;
+  if (occasion) profile.occasion = occasion;
+
+  return profile;
+}
+
+function showResults(profile) {
+  // Fill result card
+  document.getElementById('result-style-name').innerHTML = profile.styleName.replace(/The /, 'The <em>') + '</em>';
+  document.getElementById('result-vibe-tag').textContent = profile.vibe;
+  document.getElementById('result-desc').textContent = profile.desc;
+  document.getElementById('confidence-pct').textContent = profile.confidence + '%';
+  document.getElementById('confidence-fill').style.width = profile.confidence + '%';
+
+  document.getElementById('spec-color').textContent = profile.color;
+  document.getElementById('spec-color-dot').style.background = profile.colorHex;
+  document.getElementById('spec-crown').textContent = profile.crown;
+  document.getElementById('spec-brim').textContent = profile.brim;
+  document.getElementById('spec-band').textContent = profile.band;
+  document.getElementById('spec-vibe').textContent = profile.vibe;
+  document.getElementById('spec-occasion').textContent = profile.occasion;
+
+  document.getElementById('alt-tag-1').textContent = profile.alt1Tag || 'More Classic';
+  document.getElementById('alt-name-1').textContent = profile.alt1Name;
+  document.getElementById('alt-desc-1').textContent = profile.alt1Desc;
+  document.getElementById('alt-tag-2').textContent = profile.alt2Tag || 'More Bold';
+  document.getElementById('alt-name-2').textContent = profile.alt2Name;
+  document.getElementById('alt-desc-2').textContent = profile.alt2Desc;
+
+  // Fill form summary
+  const summary = `Style: ${profile.styleName} | Color: ${profile.color} | Crown: ${profile.crown} | Brim: ${profile.brim} | Band: ${profile.band} | Vibe: ${profile.vibe} | Occasion: ${profile.occasion}`;
+  document.getElementById('form-summary-box').innerHTML = `<strong>Your Hat Profile:</strong> ${summary}`;
+  document.getElementById('form-profile-hidden').value = summary;
+
+  // Show sections
+  document.getElementById('results-section').classList.remove('hidden');
+  document.getElementById('conversion-section').classList.remove('hidden');
+  document.getElementById('reset-bar').style.display = 'flex';
+
+  // Update preview with profile color
+  state.colorHex = profile.colorHex;
+  updatePreview();
+
+  setTimeout(() => {
+    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+// ── PREVIEW SVG ──
+function drawHatSVG() {
+  const hatColor = state.colorHex || '#B8892A';
+  const isLight = isLightColor(hatColor);
+  const strokeColor = isLight ? 'rgba(61,43,31,0.3)' : 'rgba(255,255,255,0.15)';
+  const highlightColor = isLight ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.1)';
+
+  // Crown shape params
+  const crown = state.crown || '';
+  let crownHeight = 70;
+  let crownTopWidth = 60;
+  let crownShape = 'classic'; // classic, teardrop, open, gus
+
+  if (crown === 'Gus / Rancher') { crownHeight = 50; crownShape = 'gus'; }
+  else if (crown === 'Teardrop') { crownHeight = 72; crownShape = 'teardrop'; }
+  else if (crown === 'Open Crown') { crownHeight = 65; crownShape = 'open'; }
+  else if (crown === 'Pinch Front') { crownHeight = 68; crownShape = 'pinch'; }
+
+  // Brim params
+  const brimWidth = state.brimWidth || 'Medium';
+  const brimStyle = state.brim || '';
+  let brimExtend = 52;
+  if (brimWidth === 'Narrow') brimExtend = 36;
+  else if (brimWidth === 'Wide') brimExtend = 68;
+  else if (brimWidth === 'Extra Wide') brimExtend = 88;
+
+  let brimCurve = 8;
+  if (brimStyle === 'Flat Brim') brimCurve = 0;
+  else if (brimStyle === 'Pencil Curl') brimCurve = 18;
+  else if (brimStyle === 'Traditional Curve') brimCurve = 10;
+  else if (brimStyle === 'Slight Curve') brimCurve = 5;
+  else if (brimStyle === 'Wide Statement') brimCurve = 6;
+
+  // Band color
+  const band = state.band || '';
+  let bandColor = '#6B4C2A';
+  if (band === 'Simple Ribbon') bandColor = '#1A1008';
+  else if (band === 'Leather Band' || band === 'Braided Leather') bandColor = '#6B4C2A';
+  else if (band === 'Minimal Dress Band') bandColor = '#3D2B1F';
+  else if (band === 'Feather Accent') bandColor = '#8B7355';
+  else if (band === 'Western Statement Band') bandColor = '#B8892A';
+
+  const cx = 140; // center x
+  const baseY = 155; // where crown meets brim
+  const topY = baseY - crownHeight;
+  const crownW = 56;
+
+  // Generate crown path
+  let crownPath = '';
+  if (crownShape === 'classic') {
+    // Classic with center crease
+    crownPath = `M ${cx - crownW} ${baseY}
+      C ${cx - crownW} ${baseY - 20}, ${cx - crownW + 8} ${topY + 10}, ${cx - 18} ${topY}
+      L ${cx + 18} ${topY}
+      C ${cx + crownW - 8} ${topY + 10}, ${cx + crownW} ${baseY - 20}, ${cx + crownW} ${baseY} Z`;
+  } else if (crownShape === 'teardrop') {
+    crownPath = `M ${cx - crownW} ${baseY}
+      C ${cx - crownW} ${baseY - 30}, ${cx - 22} ${topY + 5}, ${cx} ${topY}
+      C ${cx + 22} ${topY + 5}, ${cx + crownW} ${baseY - 30}, ${cx + crownW} ${baseY} Z`;
+  } else if (crownShape === 'gus') {
+    crownPath = `M ${cx - crownW - 8} ${baseY}
+      C ${cx - crownW - 4} ${baseY - 25}, ${cx - crownW + 6} ${topY + 5}, ${cx - 10} ${topY + 2}
+      C ${cx} ${topY - 4}, ${cx + 10} ${topY + 2}, ${cx + crownW - 6} ${topY + 5}
+      C ${cx + crownW + 4} ${baseY - 25}, ${cx + crownW + 8} ${baseY}, ${cx + crownW + 8} ${baseY} Z`;
+  } else if (crownShape === 'open') {
+    crownPath = `M ${cx - crownW} ${baseY}
+      C ${cx - crownW + 2} ${baseY - 15}, ${cx - crownW + 4} ${topY + 8}, ${cx - 28} ${topY + 4}
+      L ${cx + 28} ${topY + 4}
+      C ${cx + crownW - 4} ${topY + 8}, ${cx + crownW - 2} ${baseY - 15}, ${cx + crownW} ${baseY} Z`;
+  } else if (crownShape === 'pinch') {
+    crownPath = `M ${cx - crownW} ${baseY}
+      C ${cx - crownW} ${baseY - 25}, ${cx - 24} ${topY + 8}, ${cx - 8} ${topY}
+      C ${cx - 2} ${topY - 3}, ${cx + 2} ${topY - 3}, ${cx + 8} ${topY}
+      C ${cx + 24} ${topY + 8}, ${cx + crownW} ${baseY - 25}, ${cx + crownW} ${baseY} Z`;
+  }
+
+  // Brim path
+  const brimLeft = cx - crownW - brimExtend;
+  const brimRight = cx + crownW + brimExtend;
+  const brimY = baseY + 12;
+  const brimBot = brimY + 14;
+  const brimCurveLeft = brimBot - brimCurve;
+  const brimCurveRight = brimBot - brimCurve;
+
+  const brimPath = `M ${brimLeft} ${brimY}
+    C ${brimLeft + brimExtend * 0.3} ${brimY - 4}, ${cx - crownW * 0.5} ${brimY - 2}, ${cx - crownW} ${baseY + 2}
+    L ${cx + crownW} ${baseY + 2}
+    C ${cx + crownW * 0.5} ${brimY - 2}, ${brimRight - brimExtend * 0.3} ${brimY - 4}, ${brimRight} ${brimY}
+    C ${brimRight + 8} ${brimY + 6}, ${brimRight} ${brimCurveRight}, ${brimRight - 8} ${brimBot}
+    C ${cx + crownW + brimExtend * 0.5} ${brimBot + brimCurve * 0.5}, ${cx} ${brimBot + brimCurve * 0.3}, ${cx} ${brimBot + brimCurve * 0.3}
+    C ${cx} ${brimBot + brimCurve * 0.3}, ${cx - crownW - brimExtend * 0.5} ${brimBot + brimCurve * 0.5}, ${brimLeft + 8} ${brimBot}
+    C ${brimLeft} ${brimCurveLeft}, ${brimLeft - 8} ${brimY + 6}, ${brimLeft} ${brimY} Z`;
+
+  // Band
+  const bandY1 = baseY - 2;
+  const bandY2 = baseY + 10;
+
+  const svg = `<svg width="280" height="190" viewBox="0 0 280 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="hat-shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(26,16,8,0.25)"/>
+      </filter>
+      <linearGradient id="crown-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="${lightenColor(hatColor, 20)}"/>
+        <stop offset="100%" stop-color="${darkenColor(hatColor, 15)}"/>
+      </linearGradient>
+      <linearGradient id="brim-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${hatColor}"/>
+        <stop offset="100%" stop-color="${darkenColor(hatColor, 25)}"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Brim -->
+    <path d="${brimPath}" fill="url(#brim-grad)" stroke="${strokeColor}" stroke-width="0.5" filter="url(#hat-shadow)"/>
+
+    <!-- Crown -->
+    <path d="${crownPath}" fill="url(#crown-grad)" stroke="${strokeColor}" stroke-width="0.5"/>
+
+    <!-- Crown crease for classic/pinch -->
+    ${(crownShape === 'classic') ? `<line x1="${cx}" y1="${topY}" x2="${cx}" y2="${baseY - 5}" stroke="${darkenColor(hatColor, 20)}" stroke-width="1.5" opacity="0.5"/>` : ''}
+    ${(crownShape === 'pinch') ? `<path d="M ${cx} ${topY - 2} C ${cx - 6} ${topY + 10}, ${cx - 3} ${topY + 25}, ${cx} ${baseY - 5}" stroke="${darkenColor(hatColor, 20)}" stroke-width="1" fill="none" opacity="0.5"/>` : ''}
+
+    <!-- Crown highlight -->
+    <path d="M ${cx - crownW + 12} ${baseY - 20} C ${cx - crownW + 16} ${topY + 20}, ${cx - 20} ${topY + 8}, ${cx - 12} ${topY + 4}"
+      stroke="${highlightColor}" stroke-width="2" fill="none" opacity="0.6"/>
+
+    <!-- Band -->
+    <path d="M ${cx - crownW} ${bandY1} C ${cx - crownW + 4} ${bandY1 - 2}, ${cx} ${bandY1 - 1}, ${cx + crownW} ${bandY1}
+      L ${cx + crownW} ${bandY2} C ${cx} ${bandY2 + 1}, ${cx - crownW + 4} ${bandY2 + 2}, ${cx - crownW} ${bandY2} Z"
+      fill="${bandColor}" opacity="0.85"/>
+
+    <!-- Brim top highlight -->
+    <path d="M ${cx - crownW + 5} ${baseY + 4} C ${cx} ${baseY - 2}, ${cx + crownW - 5} ${baseY + 4}, ${cx + crownW - 5} ${baseY + 4}"
+      stroke="${highlightColor}" stroke-width="1.5" fill="none" opacity="0.5"/>
+  </svg>`;
+
+  document.getElementById('hat-svg-wrap').innerHTML = svg;
+}
+
+function isLightColor(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return (r * 0.299 + g * 0.587 + b * 0.114) > 140;
+}
+
+function lightenColor(hex, pct) {
+  return adjustColor(hex, pct);
+}
+function darkenColor(hex, pct) {
+  return adjustColor(hex, -pct);
+}
+function adjustColor(hex, pct) {
+  const h = hex.replace('#','');
+  const r = Math.max(0, Math.min(255, parseInt(h.slice(0,2),16) + Math.round(pct * 2.55)));
+  const g = Math.max(0, Math.min(255, parseInt(h.slice(2,4),16) + Math.round(pct * 2.55)));
+  const b = Math.max(0, Math.min(255, parseInt(h.slice(4,6),16) + Math.round(pct * 2.55)));
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+function updatePreview() {
+  drawHatSVG();
+  document.getElementById('pv-color').textContent = state.color || '—';
+  document.getElementById('pv-crown').textContent = state.crown ? state.crown.replace(' / Rancher','') : '—';
+  document.getElementById('pv-brim').textContent = state.brim ? state.brim.split(' Brim')[0] || state.brim : '—';
+  document.getElementById('pv-band').textContent = state.band ? (state.band === 'Not Sure' ? '—' : state.band.split(' Band')[0]) : '—';
+  document.getElementById('pv-vibe').textContent = state.vibe || '—';
+}
+
+// ── PATH SWITCHING ──
+function startPath(path) {
+  state.path = path;
+  document.getElementById('path-inspiration').classList.add('hidden');
+  document.getElementById('path-builder').classList.add('hidden');
+  document.getElementById('tab-inspiration').classList.remove('active');
+  document.getElementById('tab-builder').classList.remove('active');
+
+  if (path === 'inspiration') {
+    document.getElementById('path-inspiration').classList.remove('hidden');
+    document.getElementById('tab-inspiration').classList.add('active');
+  } else {
+    document.getElementById('path-builder').classList.remove('hidden');
+    document.getElementById('tab-builder').classList.add('active');
+  }
+  document.getElementById('path-selector').style.display = '';
+  document.getElementById('reset-bar').style.display = 'flex';
+  drawHatSVG();
+
+  setTimeout(() => {
+    document.getElementById('finder-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function switchTab(path) {
+  startPath(path);
+}
+
+function setChip(el) {
+  document.getElementById('inspiration-input').value = el.textContent;
+}
+
+function selectAlt(idx) {
+  // Highlight chosen alt
+  document.querySelectorAll('.alt-card').forEach((c,i) => {
+    c.style.borderColor = i === idx ? 'var(--camel)' : '';
+    c.style.transform = i === idx ? 'translateY(-3px)' : '';
+  });
+}
+
+// ── CONVERSION ──
+function scrollToForm() {
+  document.getElementById('consultation-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function saveStyle() {
+  const summary = document.getElementById('form-profile-hidden').value || 'Complete the style finder to generate your profile.';
+  const email = document.getElementById('form-email').value;
+  if (!email) {
+    scrollToForm();
+    document.getElementById('form-email').focus();
+    return;
+  }
+  alert('Your style profile has been saved and will be sent to ' + email + '.\n\nYour Profile:\n' + summary);
+}
+
+function submitForm() {
+  const name = document.getElementById('form-name').value.trim();
+  const email = document.getElementById('form-email').value.trim();
+  if (!name || !email) {
+    alert('Please enter your name and email to continue.');
+    return;
+  }
+  document.getElementById('consultation-form').classList.add('hidden');
+  document.getElementById('success-message').classList.remove('hidden');
+  document.getElementById('success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ── RESET ──
+function resetAll() {
+  Object.assign(state, {
+    path: null, color: null, colorHex: '#B8892A',
+    crown: null, brim: null, brimWidth: null,
+    band: null, vibe: null, occasion: null,
+    useCase: null, inspSource: null,
+    currentStep: 1, result: null
+  });
+
+  document.getElementById('path-inspiration').classList.add('hidden');
+  document.getElementById('path-builder').classList.add('hidden');
+  document.getElementById('tab-inspiration').classList.remove('active');
+  document.getElementById('tab-builder').classList.remove('active');
+  document.getElementById('results-section').classList.add('hidden');
+  document.getElementById('conversion-section').classList.add('hidden');
+  document.getElementById('reset-bar').style.display = 'none';
+  document.getElementById('inspiration-input').value = '';
+
+  // Reset all chip selections
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+  document.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+
+  // Reset step
+  goStep(1);
+  updateProgressUI();
+  updatePreview();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── INIT ──
+drawHatSVG();
+</script>
+</body>
+</html>
